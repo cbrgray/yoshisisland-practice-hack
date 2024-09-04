@@ -59,6 +59,7 @@ header {
                 top: 5px;
                 margin-right: 10px;
                 line-height: 0px;
+                animation: 120s linear infinite egg-colour;
             }
         }
 
@@ -95,6 +96,15 @@ header {
         max-width: 640px;
         margin: auto;
         text-wrap: balance;
+    }
+}
+
+@keyframes egg-colour {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
     }
 }
 

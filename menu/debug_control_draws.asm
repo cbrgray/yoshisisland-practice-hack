@@ -120,71 +120,37 @@ draw_exception_info:
 
   LDY #$0000
   LDX #!exception_info_0f00_digits_dest
+.row_loop
   JSR .draw_exception_info_row
-  LDX #!exception_info_0f04_digits_dest
-  JSR .draw_exception_info_row
-  LDX #!exception_info_0f08_digits_dest
-  JSR .draw_exception_info_row
-  LDX #!exception_info_0f0c_digits_dest
-  JSR .draw_exception_info_row
+  TXA : CLC : ADC #!tilemap_line_width-((4*2+1)*2) : TAX
+  CPY #$0010 : BCC .row_loop
 
 .ret
   PLP
   RTS
 
 .draw_exception_info_row:
-  LDA !s_spr_state+0,y
-  AND #$00FF
-  LSR #4
-  STA !menu_tilemap_mirror,x
-  INX #2
-  LDA !s_spr_state+0,y
-  AND #$00FF
-  AND #$000F
-  STA !menu_tilemap_mirror,x
-  INX #2
-  INY #1
-
-  LDA !s_spr_state+0,y
-  AND #$00FF
-  LSR #4
-  STA !menu_tilemap_mirror,x
-  INX #2
-  LDA !s_spr_state+0,y
-  AND #$00FF
-  AND #$000F
-  STA !menu_tilemap_mirror,x
-  INX #2
-  INY #1
-
+  JSR .draw_exception_info_byte
+  JSR .draw_exception_info_byte
   LDA #$003F
   STA !menu_tilemap_mirror,x
   INX #2
+  JSR .draw_exception_info_byte
+  JSR .draw_exception_info_byte
+  RTS
 
+.draw_exception_info_byte:
   LDA !s_spr_state+0,y
   AND #$00FF
+  PHA
   LSR #4
   STA !menu_tilemap_mirror,x
   INX #2
-  LDA !s_spr_state+0,y
-  AND #$00FF
+  PLA
   AND #$000F
   STA !menu_tilemap_mirror,x
   INX #2
   INY #1
-
-  LDA !s_spr_state+0,y
-  AND #$00FF
-  LSR #4
-  STA !menu_tilemap_mirror,x
-  INX #2
-  LDA !s_spr_state+0,y
-  AND #$00FF
-  AND #$000F
-  STA !menu_tilemap_mirror,x
-  INX #2
-  INY #1
-
   RTS
 
 draw_toggle:

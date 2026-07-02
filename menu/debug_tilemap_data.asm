@@ -85,7 +85,21 @@ submenu_shenanigans_tilemap:
             "NULL EGG SETTER/",
             "YOSHI PALETTE PICKER/",
             "SPRITE SPAWNER/",
-            "MEMORY EDITOR")
+            "MEMORY EDITOR/")
+
+
+submenu_memview_tilemap:
+; row 1: address setter  - digits at xpos 6,7(bank)  9,10(hi byte)  11,12(lo byte)
+; rows 2-7: 48 bytes of memory displayed as words (lower-addr byte shown first)
+;           digits at xpos 6-9 (word0)  11-14 (word1)  16-19 (word2)  21-24 (word3)
+%store_text("BACK       MEMORY VIEWER",
+            "ADR:   :    ",
+            "+00:                    ",
+            "+08:                    ",
+            "+10:                    ",
+            "+18:                    ",
+            "+20:                    ",
+            "+28:                    ")
 
 
 submenu_sprite_spawner_tilemap:

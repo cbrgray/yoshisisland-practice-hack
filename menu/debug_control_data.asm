@@ -245,7 +245,7 @@ submenu_shenanigans_ctrl:
   %define_menu_entry(!ct_submenu, $7E0000, 1, 2, submenu_nullegg_ctrl) ; null egg setter
   %define_menu_entry(!ct_submenu, $7E0000, 1, 3, submenu_yoshipalette_ctrl) ; yoshi palette picker
   %define_menu_entry(!ct_submenu, $7E0000, 1, 4, submenu_sprite_spawner_ctrl) ; sprite spawner
-  %define_menu_entry(!ct_submenu, $7E0000, 1, 5, $00) ; memory editor (placeholder)
+  %define_menu_entry(!ct_submenu, $7E0000, 1, 5, submenu_memview_ctrl) ; memory viewer
 .column_counts
   dw $0000, $0100, $0200, $0300, $0400
 
@@ -306,6 +306,22 @@ submenu_nullegg_ctrl:
   ; low byte = col count (inclusive max index), high byte = cumulative ctrl index
   ; row 0: BACK + SET EGG IDS (2 cols); rows 1: COUNT (1 col); rows 2-7: egg nibs (3 cols each)
   dw $0001, $0200, $0302, $0602, $0902, $0C02, $0F02, $1202
+
+submenu_memview_ctrl:
+.metadata
+  %define_menu_metadata(submenu_memview_ctrl, submenu_memview_tilemap, $0000, submenu_shenanigans_ctrl)
+.data
+  %define_menu_entry(!ct_submenu, $7E0000, 1,  1, $00) ; back
+  ; 24-bit view address: bank high, bank low, addr-high-hi, addr-high-lo, addr-low-hi, addr-low-lo
+  %define_menu_entry(!ct_nib, !memview_addr+2, 6,  2, $F0) ; bank hi nibble
+  %define_menu_entry(!ct_nib, !memview_addr+2, 7,  2, $0F) ; bank lo nibble
+  %define_menu_entry(!ct_nib, !memview_addr+1, 9,  2, $F0) ; high byte hi nibble
+  %define_menu_entry(!ct_nib, !memview_addr+1, 10, 2, $0F) ; high byte lo nibble
+  %define_menu_entry(!ct_nib, !memview_addr+0, 11, 2, $F0) ; low byte hi nibble
+  %define_menu_entry(!ct_nib, !memview_addr+0, 12, 2, $0F) ; low byte lo nibble
+.column_counts
+  ; row 0 (back, 1 col); row 1 (6 address nibbles)
+  dw $0000, $0105
 
 ;======================================
 

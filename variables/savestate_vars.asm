@@ -57,6 +57,9 @@
 %var_707E7E(sprite_spawn_x, 1) ; byte: X pixel offset from camera
 %var_707E7E(sprite_spawn_y, 1) ; byte: Y pixel offset from camera
 
+; memory viewer address (persistent)
+%var_707E7E(memview_addr, 3) ; 3 bytes: [lo, hi, bank] of 24-bit address to view
+
 ;=================================
 
 ; item memory

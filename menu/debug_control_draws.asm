@@ -32,6 +32,56 @@ draw_sprite_slot_count:
   PLP
   RTS
 
+; Draws 48 bytes (6 rows of 4 words) from the 24-bit address stored in !memview_addr.
+; Uses a zero-DP scratch long pointer for [dp],Y indirect long reads.
+; Words displayed as LLHH (byte at lower address on the left).
+draw_memory_viewer:
+  PHP
+  %ai16()
+  LDA !current_menu_data_ptr : CMP.w #submenu_memview_ctrl : BNE .ret
+
+  ; Preserve scratch bytes, then copy the 24-bit view address into $00-$02.
+  ; !debug_base must keep the previous control data for cursor cleanup.
+  PHD
+  LDA $00 : PHA
+  LDA $02 : PHA
+  LDA #$0000 : TCD
+  LDA.l !memview_addr   : STA $00      ; lo byte + hi byte
+  LDA.l !memview_addr+2 : AND #$00FF : STA $02  ; bank byte (zero-extend)
+
+  ; Y = source byte offset (0, 2, 4 ... increments per word read)
+  ; X = tilemap mirror word offset (starts at ypos=3 xpos=6)
+  LDY #$0000
+  LDX #!first_option_tilemap_dest+!tilemap_line_width*2+(6-1)*2
+.row_loop
+  LDA [$00],y : JSR .write_word : INY #2
+  LDA [$00],y : JSR .write_word : INY #2
+  LDA [$00],y : JSR .write_word : INY #2
+  LDA [$00],y : JSR .write_word : INY #2
+  ; advance X from end of last word to xpos=6 of next row
+  TXA : CLC : ADC #!tilemap_line_width-(4*5*2) : TAX
+  CPY #$0030 : BCC .row_loop   ; 6 rows * 8 bytes = $30
+  PLA
+  STA $02
+  PLA
+  STA $00
+  PLD
+.ret
+  PLP
+  RTS
+.write_word:
+  ; A = (HH<<8)|LL (16-bit little-endian), X = tilemap dest
+  ; writes LL then HH as 4 hex digits (LLHH), advances X by 10 (4 digits + 1 space gap)
+  PHA
+  LSR #4 : AND #$000F : STA !menu_tilemap_mirror,x : INX #2  ; LL hi nib
+  PLA : PHA
+  AND #$000F : STA !menu_tilemap_mirror,x : INX #2            ; LL lo nib
+  PLA : PHA
+  XBA : LSR #4 : AND #$000F : STA !menu_tilemap_mirror,x : INX #2  ; HH hi nib
+  PLA : XBA : AND #$000F : STA !menu_tilemap_mirror,x : INX #2     ; HH lo nib
+  INX #2   ; skip space slot between word groups
+  RTS
+
 draw_eggcount:
   REP #$10
   SEP #$20

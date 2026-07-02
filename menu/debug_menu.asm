@@ -164,6 +164,7 @@ draw_menu:
     ; hacky to draw this here but it works for now.
     JSR draw_exception_info
     JSR draw_sprite_slot_count
+    JSR draw_memory_viewer
     SEP #$20
     LDA.b #!menu_tilemap_mirror>>16 : STA $01
     REP #$30

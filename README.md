@@ -7,13 +7,16 @@ Features:
 * Debug Menu
 * HUD
 * Warp to (almost) any room entrance
-* Egg editor
+* User Preset Warps - Set with your current position 
+* Egg editor (and null egg setter)
 * Frame advance/slowdown
 * Music on/off toggle
 * Removal of slow score screen and world map animations
 * Enabling built-in Debug functions
 * Button configuration
-* Exception Handler (Recover from fatal crash)
+* Exception Handler (Recover from fatal crashes)
+* Abitrary Sprite Spawner by ID
+* Arbitrary Memory Viewer
 
 and more.
 
@@ -84,6 +87,8 @@ Current supported sprites:
 - **NON-STANDARD** - boss key (flashing upside-down key), boss explosion, seesaw log, skull mouser
 - Chicken
 
+> Use Null Egg Setter under Shenanigans to set any Null Egg Sprite ID
+
 ### Savestates
 Save your current state while in a level.
 
@@ -95,6 +100,18 @@ An after-load delay can be set from the debug menu. The byte value indicates the
 
 ### Re-zone
 Reset to your last room or level entrance depending on the **RE-ZONE LEVEL** menu option. Your eggs are saved.
+
+### Warps Menu
+Quite simply choose World, level and what room you want to go to, it will use your chosen egg inventory and automatically choose File 3.
+
+## Presets
+Presets are user chosen Warps, they default to 00 (1-1 warp) if not saved. They save Yoshis X and Y position (by tile), current level & room and his egg inventory.
+To use, simply have Yoshi be at the position and level you want to save and choose SAVE by the preset you want to use. To load simply choose the preset.
+All Presets are saved between resets and in Save RAM, if corrupted they default to 00.
+
+More presets can be added if requested.
+
+>NOTE: These are not savestates and will just load the level at that position so any sprite state will not be restored and boss rooms might have issues.
 
 ### Music Toggle
 Enable/disable music (sound effects play as normal).
@@ -156,7 +173,25 @@ R+X | - | Re-zone
 
 ### Custom Yoshi Palette
 The palette editor accepts values in `BGR555` format. It's recommended to generate values with https://orangegb.com/BGR555/ using big endian byte order.
+Now Found under Shenanigans/
 
+### Null Egg Setter
+Set any arbitrary Null Egg you want.
+Use Count for how many eggs you'll have and then edit the Sprite IDs as you'd like. Use SET EGG IDS to save.
+You'll find a complete list of all Sprite IDs at: https://github.com/brunovalads/yoshisisland-disassembly/wiki/Sprite-IDs
+
+>NOTE: After setting and going to main menu, eggs will display as xxxxxx in main menu even if regular eggs. This is deliberate (For now).
+
+### Arbitrary Sprite Spawner
+Spawn any Sprite you want. Choose your ID for what Sprite and X and Y for position, note that it is counted from top left corner of screen so a X: 80 / Y: 80 is about in the middle of the screen and FF / FF bottom right.
+Slots tell you how many sprite slots are used, you can't spawn more after 18/18 is done.
+You'll find a complete list of all Sprite IDs at: https://github.com/brunovalads/yoshisisland-disassembly/wiki/Sprite-IDs
+
+>NOTE: If you spawn all full sprite slots they WILL replace your egg inventory. Might be fixed.
+>NOTE: Not all sprites behave properly, some sprites might require more setup or be spawned as active state immediately.
+
+### Memory Viewer
+Set the Memory Address to anything you want and it will display 36 bytes starting from that address. Might be implemented with an editor as well so you can crash your game for fun.
 
 ### Exception Handler (Try recover from crash)
 Detects if game had a fatal crash (by use of BRK/COP instructions) and if so goes to debug menu where you can load latest save or rezone level. It also displays values at $700F00 as information for Tongue Glitch Cancel Setups.

@@ -1,4 +1,4 @@
-# YI Practice Hack 1.0.2f
+# YI Practice Hack 1.0.3
 Practice hack for Yoshi's Island designed to be used on a SNES console
 
 Features:

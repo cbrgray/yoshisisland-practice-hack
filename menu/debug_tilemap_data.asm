@@ -3,7 +3,7 @@ title_tilemap:
 incsrc "../resources/string_font_map.asm"
 ; CuteShrug
 dw $0040, $0041, $0042
-dw "PRACTICE HACK 1.0.2F"
+dw "PRACTICE HACK 1.0.3"
 ; CuteShrug
 dw $0040, $0041, $0042
 
@@ -19,15 +19,6 @@ mainmenu_tilemap:
             "EXCEPTION HANDLER/",
             "INPUT CONFIG/",
             "SHENANIGANS/")
-
-; submenu_warps_tilemap:
-; %store_text("BACK",
-;             "W1  W2  W3  W4  W5  W6",
-;             "PRESET 1     SET W CUR LVL+POS",
-;             "PRESET 2     SET W CUR LVL+POS",
-;             "PRESET 3     SET W CUR LVL+POS",
-;             "PRESET 4     SET W CUR LVL+POS",
-;             "PRESET 5     SET W CUR LVL+POS")
 
 submenu_warps_tilemap:
 %store_text("BACK",
@@ -48,8 +39,9 @@ submenu_warps_presets_tilemap:
             "PRESET 5     SAVE",
             " ",
             "SAVES CURRENT LVL+POS+EGGS",
-            "PRESETS ARE SAVED ACROSS RESETS")
-
+            "PRESETS ARE SAVED ACROSS RESETS",
+            "THEY ARE WARPS NOT SAVESTATES",
+            "UNSAVED ONES GOES TO 1-1 WARP")
 
 submenu_gamemods_tilemap:
 %store_text("BACK",
@@ -112,16 +104,16 @@ submenu_shenanigans_tilemap:
 
 submenu_memview_tilemap:
 ; row 1: address setter  - digits at xpos 6,7(bank)  9,10(hi byte)  11,12(lo byte)
-; rows 2-7: 48 bytes of memory displayed as words (lower-addr byte shown first)
-;           digits at xpos 6-9 (word0)  11-14 (word1)  16-19 (word2)  21-24 (word3)
+; rows 2-7: 48 bytes of memory displayed as individual hex bytes separated by spaces
+;           digits at xpos 6-7(b0) 9-10(b1) 12-13(b2) 15-16(b3) 18-19(b4) 21-22(b5) 24-25(b6) 27-28(b7)
 %store_text("BACK       MEMORY VIEWER",
             "ADR:   :    ",
-            "+00:                    ",
-            "+08:                    ",
-            "+10:                    ",
-            "+18:                    ",
-            "+20:                    ",
-            "+28:                    ")
+            "+00:                                        ",
+            "+08:                                        ",
+            "+10:                                        ",
+            "+18:                                        ",
+            "+20:                                        ",
+            "+28:                                        ")
 
 
 submenu_sprite_spawner_tilemap:
@@ -132,7 +124,9 @@ submenu_sprite_spawner_tilemap:
             "SLOTS:  /18",
             " ",
             "X/Y POS IS RELATIVE TO CAMERA",
-            "COUNTED FROM TOP LEFT CORNER")
+            "COUNTED FROM TOP LEFT CORNER",
+            " ",
+            "SOME SPRITES CAN CRASH :) HF")
 
 
 submenu_nullegg_tilemap:

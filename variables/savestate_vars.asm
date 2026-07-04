@@ -43,14 +43,14 @@
 
 ; warp position presets (persistent, 5 slots)
 ; maybe move to debug_vars.asm 
-!warp_preset_stride  = 18
+!warp_preset_stride  = 20
 !wp_world_num        = 0   ; byte
 !wp_level_num        = 1   ; byte
 !wp_egg_inv_size     = 2   ; byte
 !wp_screen_exit      = 3   ; 4 bytes {room_id, xpos, ypos, type}
 ; +7: reserved (alignment pad)
 !wp_egg_inv_items    = 8   ; 12 bytes (6 words)
-%var_707E7E(warp_presets, !warp_preset_stride*5) ; 90 bytes
+%var_707E7E(warp_presets, !warp_preset_stride*5) ; 100 bytes
 %var_707E7E(warp_presets_checksum, 2)
 
 ; sprite spawner (persistent)

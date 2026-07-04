@@ -32,9 +32,9 @@ draw_sprite_slot_count:
   PLP
   RTS
 
-; Draws 48 bytes (6 rows of 4 words) from the 24-bit address stored in !memview_addr.
+; Draws 48 bytes (6 rows of 8 bytes) from the 24-bit address stored in !memview_addr.
 ; Uses a zero-DP scratch long pointer for [dp],Y indirect long reads.
-; Words displayed as LLHH (byte at lower address on the left).
+; Bytes displayed as individual 2-digit hex values separated by spaces: 01 02 03 ...
 draw_memory_viewer:
   PHP
   %ai16()
@@ -49,17 +49,23 @@ draw_memory_viewer:
   LDA.l !memview_addr   : STA $00      ; lo byte + hi byte
   LDA.l !memview_addr+2 : AND #$00FF : STA $02  ; bank byte (zero-extend)
 
-  ; Y = source byte offset (0, 2, 4 ... increments per word read)
+  ; Y = source byte offset (increments by 1 per byte read)
   ; X = tilemap mirror word offset (starts at ypos=3 xpos=6)
   LDY #$0000
   LDX #!first_option_tilemap_dest+!tilemap_line_width*2+(6-1)*2
 .row_loop
-  LDA [$00],y : JSR .write_word : INY #2
-  LDA [$00],y : JSR .write_word : INY #2
-  LDA [$00],y : JSR .write_word : INY #2
-  LDA [$00],y : JSR .write_word : INY #2
-  ; advance X from end of last word to xpos=6 of next row
-  TXA : CLC : ADC #!tilemap_line_width-(4*5*2) : TAX
+  %a8()
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  LDA [$00],y : JSR .write_byte : INY
+  %a16()
+  ; advance X from end of last byte to xpos=6 of next row (8 bytes * 3 tiles each = 24 tiles used)
+  TXA : CLC : ADC #!tilemap_line_width-(8*3*2) : TAX
   CPY #$0030 : BCC .row_loop   ; 6 rows * 8 bytes = $30
   PLA
   STA $02
@@ -69,17 +75,18 @@ draw_memory_viewer:
 .ret
   PLP
   RTS
-.write_word:
-  ; A = (HH<<8)|LL (16-bit little-endian), X = tilemap dest
-  ; writes LL then HH as 4 hex digits (LLHH), advances X by 10 (4 digits + 1 space gap)
+.write_byte:
+  ; A = byte value (8-bit), X = tilemap dest
+  ; writes 2 hex digits then advances X past a space gap (3 tiles total = INX #6)
   PHA
-  LSR #4 : AND #$000F : STA !menu_tilemap_mirror,x : INX #2  ; LL hi nib
+  %a16()
+  AND #$00FF
+  LSR #4 : STA !menu_tilemap_mirror,x : INX #2  ; hi nibble
   PLA : PHA
-  AND #$000F : STA !menu_tilemap_mirror,x : INX #2            ; LL lo nib
-  PLA : PHA
-  XBA : LSR #4 : AND #$000F : STA !menu_tilemap_mirror,x : INX #2  ; HH hi nib
-  PLA : XBA : AND #$000F : STA !menu_tilemap_mirror,x : INX #2     ; HH lo nib
-  INX #2   ; skip space slot between word groups
+  %a8()
+  AND #$0F : STA !menu_tilemap_mirror,x : INX #2  ; lo nibble
+  INX #2   ; skip space tile between bytes
+  PLA
   RTS
 
 draw_eggcount:

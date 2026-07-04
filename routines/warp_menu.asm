@@ -203,7 +203,17 @@ warp_preset_exec:
   LDA.l !warp_presets+!wp_egg_inv_items+6,x  : STA !last_exit_eggs+8
   LDA.l !warp_presets+!wp_egg_inv_items+8,x  : STA !last_exit_eggs+10
   LDA.l !warp_presets+!wp_egg_inv_items+10,x : STA !last_exit_eggs+12
-  ; trigger warp 
+  ; mark debug egg mirror as "unknown" so egg_inv_debug_to_wram skips all slots,
+  ; leaving the preset eggs already written to !egg_inv_items intact
+  LDA.l !warp_presets+!wp_egg_inv_size,x : AND #$00FF : STA.l !debug_egg_count_mirror
+  LDA.w #!egg_inv_tilemap_count-1 ; "unknown" value
+  STA.l !debug_egg_inv_mirror+0
+  STA.l !debug_egg_inv_mirror+2
+  STA.l !debug_egg_inv_mirror+4
+  STA.l !debug_egg_inv_mirror+6
+  STA.l !debug_egg_inv_mirror+8
+  STA.l !debug_egg_inv_mirror+10
+  ; trigger warp
   LDA #$0001 : STA !level_load_type
   LDA !gamemode : CMP.w #!gm_title+1 : BCS +
   JSL load_file3_debug

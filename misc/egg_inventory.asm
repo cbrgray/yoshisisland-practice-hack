@@ -65,7 +65,23 @@ clean_egg_inv_mirror:
     RTS
 
 ;================================
-; Read inventory and translate sprite ID to 
+; Copy egg_inv_size / egg_inv_items 1:1 into the raw backup (sprite IDs preserved as-is)
+egg_inv_wram_to_raw:
+    PHP
+    %ai16()
+    LDA.l !egg_inv_size : LSR : STA !debug_egg_inv_raw_count
+    LDA.l !egg_inv_items+0  : STA !debug_egg_inv_raw+0
+    LDA.l !egg_inv_items+2  : STA !debug_egg_inv_raw+2
+    LDA.l !egg_inv_items+4  : STA !debug_egg_inv_raw+4
+    LDA.l !egg_inv_items+6  : STA !debug_egg_inv_raw+6
+    LDA.l !egg_inv_items+8  : STA !debug_egg_inv_raw+8
+    LDA.l !egg_inv_items+10 : STA !debug_egg_inv_raw+10
+.ret
+    PLP
+    RTS
+
+;================================
+; Read inventory and translate sprite ID to
 ; proper index for debug egg inv
 egg_inv_wram_to_debug:
     PHP

@@ -1,4 +1,4 @@
-# YI Practice Hack 1.0.3
+# YI Practice Hack 1.0.3a
 Practice hack for Yoshi's Island designed to be used on a SNES console
 
 Features:
@@ -105,7 +105,7 @@ Reset to your last room or level entrance depending on the **RE-ZONE LEVEL** men
 Quite simply choose World, level and what room you want to go to, it will use your chosen egg inventory and automatically choose File 3.
 
 ## Presets
-Presets are user chosen Warps, they default to 00 (1-1 warp) if not saved. They save Yoshis X and Y position (by tile), current level & room and his egg inventory.
+Presets are user chosen Warps, they default to 00 (1-1 warp) if not saved. They save Yoshis X and Y position (by tile), current level & room and his egg inventory (in level, not menu).
 To use, simply have Yoshi be at the position and level you want to save and choose SAVE by the preset you want to use. To load simply choose the preset.
 All Presets are saved between resets and in Save RAM, if corrupted they default to 00.
 

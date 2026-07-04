@@ -3,6 +3,9 @@ includeonce
 %var_1409(debug_egg_count_mirror, 2)
 !debug_egg_count_mirror_l = $7E0000+!debug_egg_count_mirror
 %var_1409(debug_egg_inv_mirror, 12)
+; raw 1:1 backup of egg_inv_size / egg_inv_items captured on menu open (sprite IDs, not tilemap indices)
+%var_1409(debug_egg_inv_raw_count, 2)
+%var_1409(debug_egg_inv_raw, 12)
 
 %var_0272(debug_menu, 2)
 %var_0272(dbc_index_row, 2)

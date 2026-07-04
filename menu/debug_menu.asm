@@ -48,8 +48,9 @@ init_debug_menu:
     JSR despawn_egg_sprites
 
 .init_settings
-    ; copy egg inventory from WRAM to our debug mirror
+    ; copy egg inventory from WRAM to our debug mirror and raw backup
     JSR egg_inv_wram_to_debug
+    JSR egg_inv_wram_to_raw
 
     ; turn HDMA off
     STZ !r_reg_hdmaen_mirror

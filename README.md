@@ -15,8 +15,8 @@ Features:
 * Enabling built-in Debug functions
 * Button configuration
 * Exception Handler (Recover from fatal crashes)
-* Abitrary Sprite Spawner by ID
-* Arbitrary Memory Viewer
+* Arbitrary Sprite Spawner by ID
+* Memory Viewer
 
 and more.
 

@@ -107,7 +107,7 @@ submenu_shenanigans_tilemap:
             "NULL EGG SETTER/",
             "YOSHI PALETTE PICKER/",
             "SPRITE SPAWNER/",
-            "MEMORY EDITOR/")
+            "MEMORY VIEWER/")
 
 
 submenu_memview_tilemap:

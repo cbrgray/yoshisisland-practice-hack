@@ -298,8 +298,8 @@ main_call_function:
   LDA !dbc_wildcard
   ASL A
   TAX
+  LDA #!sfx_midway_tape : STA !sound_immediate ; sound before function call to allow it to be overwritten by the function
   JSR (control_function_calls,x)
-  LDA #!sfx_midway_tape : STA !sound_immediate
 
 .ret
   RTS
@@ -354,6 +354,7 @@ spawn_sprite_from_menu:
 
   STA !s_spr_y_pixel_pos,y
   %ai16()
+  ; Would be better to draw it here maybe instead of main debug menu
   ; JSR draw_sprite_slot_count
 .ret
   PLP

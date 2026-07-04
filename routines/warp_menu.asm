@@ -172,7 +172,7 @@ warp_preset_exec:
   %ai16()
   ; compute byte offset into warp_presets: (row - 2) * stride
   LDA !dbc_index_row
-  SEC : SBC #$0002
+  SEC : SBC #$0001
   AND #$00FF
   TAX
   %a8()
@@ -235,7 +235,7 @@ set_preset_exec:
 +
   ; compute byte offset: (row - 2) * stride
   LDA !dbc_index_row
-  SEC : SBC #$0002
+  SEC : SBC #$0001
   AND #$00FF
   TAX
   %a8()

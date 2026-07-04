@@ -20,14 +20,36 @@ mainmenu_tilemap:
             "INPUT CONFIG/",
             "SHENANIGANS/")
 
+; submenu_warps_tilemap:
+; %store_text("BACK",
+;             "W1  W2  W3  W4  W5  W6",
+;             "PRESET 1     SET W CUR LVL+POS",
+;             "PRESET 2     SET W CUR LVL+POS",
+;             "PRESET 3     SET W CUR LVL+POS",
+;             "PRESET 4     SET W CUR LVL+POS",
+;             "PRESET 5     SET W CUR LVL+POS")
+
 submenu_warps_tilemap:
 %store_text("BACK",
-            "W1  W2  W3  W4  W5  W6",
-            "PRESET 1     SET W CUR LVL+POS",
-            "PRESET 2     SET W CUR LVL+POS",
-            "PRESET 3     SET W CUR LVL+POS",
-            "PRESET 4     SET W CUR LVL+POS",
-            "PRESET 5     SET W CUR LVL+POS")
+            "WORLD 1",
+            "WORLD 2",
+            "WORLD 3",
+            "WORLD 4",
+            "WORLD 5",
+            "WORLD 6",
+            "PRESETS/")
+
+submenu_warps_presets_tilemap:
+%store_text("BACK",
+            "PRESET 1     SAVE",
+            "PRESET 2     SAVE",
+            "PRESET 3     SAVE",
+            "PRESET 4     SAVE",
+            "PRESET 5     SAVE",
+            " ",
+            "SAVES CURRENT LVL+POS+EGGS",
+            "PRESETS ARE SAVED ACROSS RESETS")
+
 
 submenu_gamemods_tilemap:
 %store_text("BACK",
@@ -193,7 +215,7 @@ option_world3_tilemaps_addr_table:
 
 option_level41_tilemap: %store_text("*CAVE", "MAIN 1 (FROM CAVE)", "FUZZIES", "MAIN 2")
 option_level42_tilemap: %store_text("MAIN 1", "*LONG FALL", "MAIN 1 (FROM FALL)", "MAIN 2", "*RED COIN")
-option_level43_tilemap: %store_text("*HELICOPTER", "END")
+option_level43_tilemap: %store_text("*HELICOPTER", "END", "2ND END (BALLOON)")
 option_level44_tilemap: %store_text("HUB", "TOP RIGHT", "BOTTOM RIGHT 1", "BOTTOM RIGHT 2", "TOP LEFT", "BOTTOM LEFT", "1ST KEY", "2ND KEY", "3RD KEY", "BOSS")
 option_level45_tilemap: %store_text("MAIN 2", "*BASEBALL FLOWER")
 option_level46_tilemap: %store_text("*SMALL ROOM WITH TULIP", "CAVE 1", "CAVE 2", "*DOUBLE ARROW LIFTS", "OUTSIDE")

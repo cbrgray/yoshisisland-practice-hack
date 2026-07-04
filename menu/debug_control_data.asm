@@ -88,28 +88,39 @@ mainmenu_ctrl:
 
 submenu_warps_ctrl:
 .metadata
-  %define_menu_metadata(submenu_warps_ctrl, submenu_warps_tilemap, $0000, mainmenu_ctrl)
+%define_menu_metadata(submenu_warps_ctrl, submenu_warps_tilemap, $0000, mainmenu_ctrl)
 .data
-  %define_menu_entry(!ct_submenu, $7E0000, 1,  1, $00) ; back
-  %define_menu_entry(!ct_warps,   $7E0000, 1,  2, $01) ; world 1
-  %define_menu_entry(!ct_warps,   $7E0000, 5,  2, $02) ; world 2
-  %define_menu_entry(!ct_warps,   $7E0000, 9,  2, $03) ; world 3
-  %define_menu_entry(!ct_warps,   $7E0000, 13, 2, $04) ; world 4
-  %define_menu_entry(!ct_warps,   $7E0000, 17, 2, $05) ; world 5
-  %define_menu_entry(!ct_warps,   $7E0000, 21, 2, $06) ; world 6
-  %define_menu_entry(!ct_func, $7E0000, 1,  3, $07) ; preset 1 - warp
-  %define_menu_entry(!ct_func, $7E0000, 14, 3, $08) ; preset 1 - set
-  %define_menu_entry(!ct_func, $7E0000, 1,  4, $07) ; preset 2 - warp
-  %define_menu_entry(!ct_func, $7E0000, 14, 4, $08) ; preset 2 - set
-  %define_menu_entry(!ct_func, $7E0000, 1,  5, $07) ; preset 3 - warp
-  %define_menu_entry(!ct_func, $7E0000, 14, 5, $08) ; preset 3 - set
-  %define_menu_entry(!ct_func, $7E0000, 1,  6, $07) ; preset 4 - warp
-  %define_menu_entry(!ct_func, $7E0000, 14, 6, $08) ; preset 4 - set
-  %define_menu_entry(!ct_func, $7E0000, 1,  7, $07) ; preset 5 - warp
-  %define_menu_entry(!ct_func, $7E0000, 14, 7, $08) ; preset 5 - set
+%define_menu_entry(!ct_submenu, $7E0000, 1, 1, $00) ; back
+%define_menu_entry(!ct_warps,   $7E0000, 1, 2, $01) ; world 1
+%define_menu_entry(!ct_warps,   $7E0000, 1, 3, $02) ; world 2
+%define_menu_entry(!ct_warps,   $7E0000, 1, 4, $03) ; world 3
+%define_menu_entry(!ct_warps,   $7E0000, 1, 5, $04) ; world 4
+%define_menu_entry(!ct_warps,   $7E0000, 1, 6, $05) ; world 5
+%define_menu_entry(!ct_warps,   $7E0000, 1, 7, $06) ; world 6
+%define_menu_entry(!ct_submenu, $7E0000, 1, 8, submenu_warps_presets_ctrl) ; presets submenu
 .column_counts
-  ; row 0: back(1), row 1: worlds(6), rows 2-6: preset warp+set(2 each)
-  dw $0000, $0105, $0701, $0901, $0B01, $0D01, $0F01
+; row 0: back(1), rows 1-6: worlds(1 each), row 7: presets(1)
+; Low byte is 0 because there is only 1 column (max index 0) per row.
+dw $0000, $0100, $0200, $0300, $0400, $0500, $0600, $0700
+
+submenu_warps_presets_ctrl:
+.metadata
+%define_menu_metadata(submenu_warps_presets_ctrl, submenu_warps_presets_tilemap, $0000, submenu_warps_ctrl)
+.data
+%define_menu_entry(!ct_submenu, $7E0000, 1, 1, $00) ; back
+%define_menu_entry(!ct_func, $7E0000, 1,  2, $07) ; preset 1 - warp
+%define_menu_entry(!ct_func, $7E0000, 14, 2, $08) ; preset 1 - set
+%define_menu_entry(!ct_func, $7E0000, 1,  3, $07) ; preset 2 - warp
+%define_menu_entry(!ct_func, $7E0000, 14, 3, $08) ; preset 2 - set
+%define_menu_entry(!ct_func, $7E0000, 1,  4, $07) ; preset 3 - warp
+%define_menu_entry(!ct_func, $7E0000, 14, 4, $08) ; preset 3 - set
+%define_menu_entry(!ct_func, $7E0000, 1,  5, $07) ; preset 4 - warp
+%define_menu_entry(!ct_func, $7E0000, 14, 5, $08) ; preset 4 - set
+%define_menu_entry(!ct_func, $7E0000, 1,  6, $07) ; preset 5 - warp
+%define_menu_entry(!ct_func, $7E0000, 14, 6, $08) ; preset 5 - set
+.column_counts
+; row 0: back(1), rows 1-5: preset warp+set(2 each)
+dw $0000, $0101, $0301, $0501, $0701, $0901
 
 submenu_gamemods_ctrl:
 .metadata
@@ -517,6 +528,7 @@ warp_data_level_42: ; 1C
 warp_data_level_43: ; 1D
   db $1D, $69, $29, $05  ; Bonus
   db $54, $00, $3A, $06  ; 2nd Room
+  db $54, $07, $1D, $09  ; 2nd End (Balloon)
 warp_data_level_44: ; 1E
   db $55, $78, $50, $00  ; Hub
   db $AA, $B3, $15, $00  ; Top Right

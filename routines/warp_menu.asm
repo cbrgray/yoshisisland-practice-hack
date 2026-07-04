@@ -267,6 +267,9 @@ set_preset_exec:
   LDA.l !egg_inv_items+6  : STA.l !warp_presets+!wp_egg_inv_items+6,x
   LDA.l !egg_inv_items+8  : STA.l !warp_presets+!wp_egg_inv_items+8,x
   LDA.l !egg_inv_items+10 : STA.l !warp_presets+!wp_egg_inv_items+10,x
+  ; update stored checksum so boot check sees valid data next power-on
+  JSR get_warp_presets_checksum
+  STA !warp_presets_checksum
 .ret
   PLP
   RTS

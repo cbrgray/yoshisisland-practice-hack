@@ -51,6 +51,7 @@
 ; +7: reserved (alignment pad)
 !wp_egg_inv_items    = 8   ; 12 bytes (6 words)
 %var_707E7E(warp_presets, !warp_preset_stride*5) ; 90 bytes
+%var_707E7E(warp_presets_checksum, 2)
 
 ; sprite spawner (persistent)
 %var_707E7E(sprite_spawn_id, 2) ; word: sprite ID to spawn (0-$1F4)
